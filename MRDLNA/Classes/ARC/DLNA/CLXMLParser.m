@@ -33,7 +33,11 @@
     xmlParser.delegate = parser;
     [xmlParser parse];
     
-    return parser.currentArray;
+    NSArray *resultArray = parser.currentArray;
+    if (resultArray.count == 0) {
+        return @[parser.currentDictionary];
+    }
+    return resultArray;
 }
 
 #pragma mark - NSXMLParserDelegate
