@@ -46,40 +46,7 @@
 }
 
 - (NSString *)getDIDLTemplateForURL:(NSString *)urlStr {
-    NSString *lowercaseURL = [urlStr lowercaseString];
-    
-    // Video formats
-    if ([lowercaseURL containsString:@".mp4"] || 
-        [lowercaseURL containsString:@".avi"] || 
-        [lowercaseURL containsString:@".mkv"] || 
-        [lowercaseURL containsString:@".mov"] ||
-        [lowercaseURL containsString:@".wmv"] ||
-        [lowercaseURL containsString:@".flv"] ||
-        [lowercaseURL containsString:@"video/"]) {
-        return DIDL_VIDEO_TEMPLATE;
-    }
-    
-    // Audio formats
-    if ([lowercaseURL containsString:@".mp3"] || 
-        [lowercaseURL containsString:@".wav"] || 
-        [lowercaseURL containsString:@".flac"] || 
-        [lowercaseURL containsString:@".aac"] ||
-        [lowercaseURL containsString:@".ogg"] ||
-        [lowercaseURL containsString:@"audio/"]) {
-        return DIDL_AUDIO_TEMPLATE;
-    }
-    
-    // Image formats
-    if ([lowercaseURL containsString:@".jpg"] || 
-        [lowercaseURL containsString:@".jpeg"] || 
-        [lowercaseURL containsString:@".png"] || 
-        [lowercaseURL containsString:@".gif"] ||
-        [lowercaseURL containsString:@".bmp"] ||
-        [lowercaseURL containsString:@"image/"]) {
-        return DIDL_IMAGE_TEMPLATE;
-    }
-    
-    // Default to video template
+    // 仅支持视频，需要支持其他格式，去翻0.3.0源码
     return DIDL_VIDEO_TEMPLATE;
 }
 
