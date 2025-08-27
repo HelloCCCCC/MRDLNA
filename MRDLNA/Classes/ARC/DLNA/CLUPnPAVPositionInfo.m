@@ -7,21 +7,22 @@
 //
 
 #import "CLUPnPAVPositionInfo.h"
-#import "CLXMLParser.h"
+#import "GDataXMLNode.h"
 
 @implementation CLUPnPAVPositionInfo
 
-- (void)setArray:(NSArray *)array {
+- (void)setArray:(NSArray *)array{
     @autoreleasepool {
-        for (NSDictionary *dict in array) {
-            if ([dict[@"TrackDuration"] isKindOfClass:[NSString class]]) {
-                self.trackDuration = [dict[@"TrackDuration"] durationTime];
+        for (int m = 0; m < array.count; m++) {
+            GDataXMLElement *needEle = [array objectAtIndex:m];
+            if ([needEle.name isEqualToString:@"TrackDuration"]) {
+                self.trackDuration = [[needEle stringValue] durationTime];
             }
-            if ([dict[@"RelTime"] isKindOfClass:[NSString class]]) {
-                self.relTime = [dict[@"RelTime"] durationTime];
+            if ([needEle.name isEqualToString:@"RelTime"]) {
+                self.relTime = [[needEle stringValue] durationTime];
             }
-            if ([dict[@"AbsTime"] isKindOfClass:[NSString class]]) {
-                self.absTime = [dict[@"AbsTime"] durationTime];
+            if ([needEle.name isEqualToString:@"AbsTime"]) {
+                self.absTime = [[needEle stringValue] durationTime];
             }
         }
     }
@@ -31,17 +32,18 @@
 
 @implementation CLUPnPTransportInfo
 
-- (void)setArray:(NSArray *)array {
-    @autoreleasepool {        
-        for (NSDictionary *dict in array) {
-            if ([dict[@"CurrentTransportState"] isKindOfClass:[NSString class]]) {
-                self.currentTransportState = dict[@"CurrentTransportState"];
+- (void)setArray:(NSArray *)array{
+    @autoreleasepool {
+        for (int m = 0; m < array.count; m++) {
+            GDataXMLElement *needEle = [array objectAtIndex:m];
+            if ([needEle.name isEqualToString:@"CurrentTransportState"]) {
+                self.currentTransportState = [needEle stringValue];
             }
-            if ([dict[@"CurrentTransportStatus"] isKindOfClass:[NSString class]]) {
-                self.currentTransportStatus = dict[@"CurrentTransportStatus"];
+            if ([needEle.name isEqualToString:@"CurrentTransportStatus"]) {
+                self.currentTransportStatus = [needEle stringValue];
             }
-            if ([dict[@"CurrentSpeed"] isKindOfClass:[NSString class]]) {
-                self.currentSpeed = dict[@"CurrentSpeed"];
+            if ([needEle.name isEqualToString:@"CurrentSpeed"]) {
+                self.currentSpeed = [needEle stringValue];
             }
         }
     }

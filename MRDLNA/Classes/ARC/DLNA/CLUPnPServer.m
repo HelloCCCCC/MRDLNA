@@ -9,7 +9,7 @@
 #import "CLUPnP.h"
 #import "CLUPnPServer.h"
 #import "GCDAsyncUdpSocket.h"
-#import "CLXMLParser.h"
+#import "GDataXMLNode.h"
 
 @interface CLUPnPServer ()<GCDAsyncUdpSocketDelegate>
 
@@ -248,12 +248,20 @@ withFilterContext:(nullable id)filterContext{
             if (response != nil && data != nil) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                 if (httpResponse.statusCode == 200) {
-                    NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSArray *array = [CLXMLParser parseXMLArray:xmlString];
                     device = [[CLUPnPDevice alloc] init];
-                    device.uuid = usn;
                     device.location = url;
-                    [device setArray:array];
+                    device.uuid = usn;
+                    GDataXMLDocument *xmlDoc = [[GDataXMLDocument alloc] initWithData:data options:0 error:nil];
+                    GDataXMLElement *xmlEle = [xmlDoc rootElement];
+                    NSArray *xmlArray = [xmlEle children];
+                    
+                    for (int i = 0; i < [xmlArray count]; i++) {
+                        GDataXMLElement *element = [xmlArray objectAtIndex:i];
+                        if ([[element name] isEqualToString:@"device"]) {
+                            [device setArray:[element children]];
+                            continue;
+                        }
+                    }
                 }
             }
         }

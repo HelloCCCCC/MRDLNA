@@ -7,13 +7,13 @@
 //
 
 #import "CLUPnPAction.h"
-#import "CLXMLDocument.h"
+#import "GDataXMLNode.h"
 #import "CLUPnP.h"
 
 @interface CLUPnPAction (){
     NSString    *_action;
 }
-@property (nonatomic, strong) CLXMLDocument *XMLElement;
+@property (nonatomic, strong) GDataXMLElement *XMLElement;
 
 @end
 
@@ -25,7 +25,7 @@
         _action = action;
         _serviceType = CLUPnPServiceAVTransport;
         NSString *name = [NSString stringWithFormat:@"u:%@", _action];
-        self.XMLElement = [CLXMLDocument elementWithName:name];
+        self.XMLElement = [GDataXMLElement elementWithName:name];
     }
     return self;
 }
@@ -35,9 +35,7 @@
 }
 
 - (void)setArgumentValue:(NSString *)value forName:(NSString *)name{
-    CLXMLDocument *element = [CLXMLDocument elementWithName:name];
-    [element setStringValue:value];
-    [self.XMLElement addChild:element];
+    [self.XMLElement addChild:[GDataXMLElement elementWithName:name stringValue:value]];
 }
 
 - (NSString *)getServiceType{
@@ -77,12 +75,14 @@
  */
 
 - (NSString *)getPostXMLFile{
-    CLXMLDocument *xmlEle = [CLXMLDocument elementWithName:@"s:Envelope"];
-    [xmlEle addAttribute:[CLXMLDocument attributeWithName:@"s:encodingStyle" stringValue:@"http://schemas.xmlsoap.org/soap/encoding/"]];
-    [xmlEle addAttribute:[CLXMLDocument attributeWithName:@"xmlns:s" stringValue:@"http://schemas.xmlsoap.org/soap/envelope/"]];
-    [xmlEle addAttribute:[CLXMLDocument attributeWithName:@"xmlns:u" stringValue:[self getServiceType]]];
+    GDataXMLElement *xmlEle = [GDataXMLElement elementWithName:@"s:Envelope"];
+    [xmlEle addChild:[GDataXMLElement attributeWithName:@"s:encodingStyle" stringValue:@"http://schemas.xmlsoap.org/soap/encoding/"]];
+    [xmlEle addChild:[GDataXMLElement attributeWithName:@"xmlns:s" stringValue:@"http://schemas.xmlsoap.org/soap/envelope/"]];
+    [xmlEle addChild:[GDataXMLElement attributeWithName:@"xmlns:u" stringValue:[self getServiceType]]];
+    GDataXMLElement *command = [GDataXMLElement elementWithName:@"s:Body"];
     
-    CLXMLDocument *command = [CLXMLDocument elementWithName:@"s:Body"];
+//    GDataXMLElement *CurrentURIMetaDataEle = [self.XMLElement elementsForName:@"CurrentURIMetaData"][0];
+    
     [command addChild:self.XMLElement];
     [xmlEle addChild:command];
     

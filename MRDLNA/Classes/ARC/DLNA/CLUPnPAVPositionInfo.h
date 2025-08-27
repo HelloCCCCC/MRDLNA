@@ -14,7 +14,7 @@
 @property (nonatomic, assign) float relTime;
 @property (nonatomic, assign) float absTime;
 
-- (void)setDictionary:(NSDictionary *)dict;
+- (void)setArray:(NSArray *)array;
 
 @end
 
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *currentTransportStatus;
 @property (nonatomic, strong) NSString *currentSpeed;
 
-- (void)setDictionary:(NSDictionary *)dict;
+- (void)setArray:(NSArray *)array;
 
 @end
 
