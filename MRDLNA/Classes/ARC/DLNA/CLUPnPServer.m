@@ -238,8 +238,8 @@ withFilterContext:(nullable id)filterContext{
     dispatch_semaphore_t seamphore = dispatch_semaphore_create(0);
     
     __block CLUPnPDevice *device = nil;
-    NSURL *URL = [NSURL URLWithString:location];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    NSURL *url = [NSURL URLWithString:location];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     request.HTTPMethod = @"GET";
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -252,7 +252,7 @@ withFilterContext:(nullable id)filterContext{
                     NSArray *array = [CLXMLParser parseXMLArray:xmlString];
                     device = [[CLUPnPDevice alloc] init];
                     device.uuid = usn;
-                    device.location = location;
+                    device.location = url;
                     [device setArray:array];
                 }
             }
