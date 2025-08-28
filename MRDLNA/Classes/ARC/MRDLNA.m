@@ -99,6 +99,12 @@
     [self.upd start];
 }
 
+/**
+ 停止搜设备
+ */
+- (void)stopSearch{
+    [self.upd stop];
+}
 
 /**
  设置音量
@@ -138,6 +144,11 @@
     [self.render setAVTransportURL:url];
 }
 
+#pragma mark --
+- (void)getPositionInfo {
+    [self.render getPositionInfo];
+}
+
 #pragma mark -- 搜索协议CLUPnPDeviceDelegate回调
 - (void)upnpSearchChangeWithResults:(NSArray<CLUPnPDevice *> *)devices{
     NSMutableArray *deviceMarr = [NSMutableArray array];
@@ -157,13 +168,25 @@
 
 - (void)upnpSearchErrorWithError:(NSError *)error{
 //    NSLog(@"DLNA_Error======>%@", error);
+    
+    if ([self.delegate respondsToSelector:@selector(upnpSearchErrorWithError:)]) {
+        [self.delegate upnpSearchErrorWithError:error];
+    }
+}
+
+/** 搜索结束 */
+- (void)upnpSearchStop {
+    if ([self.delegate respondsToSelector:@selector(upnpSearchStop)]) {
+        [self.delegate upnpSearchStop];
+    }
 }
 
 #pragma mark - CLUPnPResponseDelegate
+// 设置url响应
 - (void)upnpSetAVTransportURIResponse{
     [self.render play];
 }
-
+// 获取播放状态
 - (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info{
 //    NSLog(@"%@ === %@", info.currentTransportState, info.currentTransportStatus);
     if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
@@ -171,9 +194,53 @@
     }
 }
 
+//optional
+// 未定义的响应/错误
+- (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML {
+    
+}
+// 播放响应
 - (void)upnpPlayResponse{
-    if ([self.delegate respondsToSelector:@selector(dlnaStartPlay)]) {
-        [self.delegate dlnaStartPlay];
+    if ([self.delegate respondsToSelector:@selector(upnpPlayResponse)]) {
+        [self.delegate upnpPlayResponse];
+    }
+}
+// 暂停响应
+- (void)upnpPauseResponse {
+    
+}
+// 停止投屏
+- (void)upnpStopResponse {
+    
+}
+// 跳转响应
+- (void)upnpSeekResponse {
+    
+}
+// 以前的响应
+- (void)upnpPreviousResponse {
+    
+}
+// 下一个响应
+- (void)upnpNextResponse {
+    
+}
+// 设置音量响应
+- (void)upnpSetVolumeResponse {
+    
+}
+// 设置下一个url响应
+- (void)upnpSetNextAVTransportURIResponse {
+    
+}
+// 获取音频信息
+- (void)upnpGetVolumeResponse:(NSString *)volume {
+    
+}
+// 获取播放进度
+- (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info {
+    if ([self.delegate respondsToSelector:@selector(upnpGetPositionInfoResponse:)]) {
+        [self.delegate upnpGetPositionInfoResponse:info];
     }
 }
 

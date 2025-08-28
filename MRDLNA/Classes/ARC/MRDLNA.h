@@ -17,12 +17,39 @@
  @param devicesArray <CLUPnPDevice *> 搜索到的设备
  */
 - (void)searchDLNAResult:(NSArray *)devicesArray;
+// 搜索错误
+- (void)upnpSearchErrorWithError:(NSError *)error;
+// 搜索结束
+- (void)upnpSearchStop;
 
 
-/**
- 投屏成功开始播放
- */
-- (void)dlnaStartPlay;
+// 设置url响应
+- (void)upnpSetAVTransportURIResponse;
+// 获取播放状态
+- (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info;
+//optional
+// 未定义的响应/错误
+- (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML;
+// 投屏成功开始播放
+- (void)upnpPlayResponse;
+// 暂停响应
+- (void)upnpPauseResponse;
+// 停止投屏
+- (void)upnpStopResponse;
+// 跳转响应
+- (void)upnpSeekResponse;
+// 以前的响应
+- (void)upnpPreviousResponse;
+// 下一个响应
+- (void)upnpNextResponse;
+// 设置音量响应
+- (void)upnpSetVolumeResponse;
+// 设置下一个url响应
+- (void)upnpSetNextAVTransportURIResponse;
+// 获取音频信息
+- (void)upnpGetVolumeResponse:(NSString *)volume;
+/// 获取播放进度
+- (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info;
 
 @end
 
@@ -45,6 +72,10 @@
  搜设备
  */
 - (void)startSearch;
+/**
+ 停止搜设备
+ */
+- (void)stopSearch;
 
 /**
  DLNA投屏
@@ -85,4 +116,10 @@
  播放切集
  */
 - (void)playTheURL:(NSString *)url;
+
+/**
+ 获取播放进度,可通过协议回调使用
+ */
+- (void)getPositionInfo;
+
 @end

@@ -13,9 +13,6 @@
 // DIDL-Lite templates for different media types
 #define DIDL_VIDEO_TEMPLATE @"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:sec=\"http://www.sec.co.kr/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"><item id=\"f-0\" parentID=\"0\" restricted=\"0\"><dc:title>%@</dc:title><dc:creator>%@</dc:creator><upnp:class>object.item.videoItem</upnp:class><res protocolInfo=\"http-get:*:video/*:DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000\" sec:URIType=\"public\">%@</res></item></DIDL-Lite>"
 
-#define DIDL_AUDIO_TEMPLATE @"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"><item id=\"f-0\" parentID=\"0\" restricted=\"0\"><dc:title>%@</dc:title><dc:creator>%@</dc:creator><upnp:class>object.item.audioItem.musicTrack</upnp:class><res protocolInfo=\"http-get:*:audio/*:DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000\">%@</res></item></DIDL-Lite>"
-
-#define DIDL_IMAGE_TEMPLATE @"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"><item id=\"f-0\" parentID=\"0\" restricted=\"0\"><dc:title>%@</dc:title><dc:creator>%@</dc:creator><upnp:class>object.item.imageItem</upnp:class><res protocolInfo=\"http-get:*:image/*:DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=00900000000000000000000000000000\">%@</res></item></DIDL-Lite>"
 
 @implementation CLUPnPRenderer
 
@@ -35,10 +32,10 @@
 
 - (NSString *)createDIDLForURL:(NSString *)urlStr title:(NSString *)title creator:(NSString *)creator {
     if (!title || title.length == 0) {
-        title = @"Unknown Media";
+        title = @""; // Unknown Media
     }
     if (!creator || creator.length == 0) {
-        creator = @"Unknown";
+        creator = @""; // Unknown
     }
     
     NSString *template = [self getDIDLTemplateForURL:urlStr];

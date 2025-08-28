@@ -26,6 +26,9 @@
  */
 - (void)upnpSearchErrorWithError:(NSError *)error;
 
+/** 搜索结束 */
+- (void)upnpSearchStop;
+
 @end
 
 @interface CLUPnPServer : NSObject

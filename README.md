@@ -84,7 +84,7 @@ pod 'MRDLNA', '~> 0.3.0'
     // Update your UI here | 在此更新UI
 }
 
-- (void)dlnaStartPlay {
+- (void)upnpPlayResponse {
     NSLog(@"DLNA streaming started successfully");
     // Handle successful streaming | 处理投屏成功
 }
