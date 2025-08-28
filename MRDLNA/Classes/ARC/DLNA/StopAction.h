@@ -11,6 +11,8 @@
 @interface StopAction : NSObject
 @property(nonatomic, strong) CLUPnPDevice *device;
 
-- (instancetype)initWithDevice:(CLUPnPDevice *) device Success:(void(^)())successBlock failure:(void(^)())failureBlock;
+- (instancetype)initWithDevice:(CLUPnPDevice *) device Success:(void(^)(void))successBlock failure:(void(^)(void))failureBlock;
+
 -(void)executeAction;
+
 @end

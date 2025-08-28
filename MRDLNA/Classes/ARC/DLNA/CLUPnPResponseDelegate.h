@@ -18,6 +18,8 @@
 
 - (void)upnpSetAVTransportURIResponse;  // 设置url响应
 - (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info;   // 获取播放状态
+// 请求异常
+- (void)upnpRequestError:(NSError *)error;
 
 @optional
 

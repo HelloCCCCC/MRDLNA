@@ -33,6 +33,7 @@ static NSString *serviceId_RenderingControl     = @"urn:upnp-org:serviceId:Rende
 
 
 static NSString *unitREL_TIME = @"REL_TIME";
+/// UPnP AVTransport 服务中的轨道编号单位标识符
 static NSString *unitTRACK_NR = @"TRACK_NR";
 
 #endif /* CLUPnP_h */

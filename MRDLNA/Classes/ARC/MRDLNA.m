@@ -84,7 +84,6 @@
     [self.render play];
 }
 
-
 /**
  暂停
  */
@@ -159,8 +158,8 @@
         }
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self.delegate respondsToSelector:@selector(searchDLNAResult:)]) {
-            [self.delegate searchDLNAResult:[deviceMarr copy]];
+        if ([self.delegate respondsToSelector:@selector(mrdlnaSearchDLNAResult:)]) {
+            [self.delegate mrdlnaSearchDLNAResult:[deviceMarr copy]];
         }
         self.dataArray = deviceMarr;
     });
@@ -169,21 +168,24 @@
 - (void)upnpSearchErrorWithError:(NSError *)error{
 //    NSLog(@"DLNA_Error======>%@", error);
     
-    if ([self.delegate respondsToSelector:@selector(upnpSearchErrorWithError:)]) {
-        [self.delegate upnpSearchErrorWithError:error];
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSearchErrorWithError:)]) {
+        [self.delegate mrdlnaUpnpSearchErrorWithError:error];
     }
 }
 
 /** 搜索结束 */
 - (void)upnpSearchStop {
-    if ([self.delegate respondsToSelector:@selector(upnpSearchStop)]) {
-        [self.delegate upnpSearchStop];
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSearchStop)]) {
+        [self.delegate mrdlnaUpnpSearchStop];
     }
 }
 
 #pragma mark - CLUPnPResponseDelegate
 // 设置url响应
-- (void)upnpSetAVTransportURIResponse{
+- (void)upnpSetAVTransportURIResponse {
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSetAVTransportURIResponse)]) {
+        [self.delegate mrdlnaUpnpSetAVTransportURIResponse];
+    }
     [self.render play];
 }
 // 获取播放状态
@@ -194,55 +196,80 @@
     }
 }
 
+- (void)upnpRequestError:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpRequestError:)]) {
+        [self.delegate mrdlnaUpnpRequestError:error];
+    }
+}
+
 //optional
 // 未定义的响应/错误
 - (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpUndefinedResponse:postXML:)]) {
+        [self.delegate mrdlnaUpnpUndefinedResponse:resXML postXML:postXML];
+    }
 }
 // 播放响应
 - (void)upnpPlayResponse{
-    if ([self.delegate respondsToSelector:@selector(upnpPlayResponse)]) {
-        [self.delegate upnpPlayResponse];
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpPlayResponse)]) {
+        [self.delegate mrdlnaUpnpPlayResponse];
     }
 }
 // 暂停响应
 - (void)upnpPauseResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpPauseResponse)]) {
+        [self.delegate mrdlnaUpnpPauseResponse];
+    }
 }
 // 停止投屏
 - (void)upnpStopResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpStopResponse)]) {
+        [self.delegate mrdlnaUpnpStopResponse];
+    }
 }
 // 跳转响应
 - (void)upnpSeekResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSeekResponse)]) {
+        [self.delegate mrdlnaUpnpSeekResponse];
+    }
 }
 // 以前的响应
 - (void)upnpPreviousResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpPreviousResponse)]) {
+        [self.delegate mrdlnaUpnpPreviousResponse];
+    }
 }
 // 下一个响应
 - (void)upnpNextResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpNextResponse)]) {
+        [self.delegate mrdlnaUpnpNextResponse];
+    }
 }
 // 设置音量响应
 - (void)upnpSetVolumeResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSetVolumeResponse)]) {
+        [self.delegate mrdlnaUpnpSetVolumeResponse];
+    }
 }
 // 设置下一个url响应
 - (void)upnpSetNextAVTransportURIResponse {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpSetNextAVTransportURIResponse)]) {
+        [self.delegate mrdlnaUpnpSetNextAVTransportURIResponse];
+    }
 }
 // 获取音频信息
 - (void)upnpGetVolumeResponse:(NSString *)volume {
-    
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpGetVolumeResponse:)]) {
+        [self.delegate mrdlnaUpnpGetVolumeResponse:volume];
+    }
 }
 // 获取播放进度
 - (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info {
-    if ([self.delegate respondsToSelector:@selector(upnpGetPositionInfoResponse:)]) {
-        [self.delegate upnpGetPositionInfoResponse:info];
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpGetPositionInfoResponse:)]) {
+        [self.delegate mrdlnaUpnpGetPositionInfoResponse:info];
     }
 }
+
 
 #pragma mark Set&Get
 - (void)setSearchTime:(NSInteger)searchTime{

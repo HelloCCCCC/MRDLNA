@@ -170,7 +170,11 @@
     request.HTTPBody = [postXML dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error || data == nil) {
-            [self _UndefinedResponse:nil postXML:postXML];
+            if (error) {
+                [self postRequestError:error];
+            } else {
+                [self _UndefinedResponse:nil postXML:postXML];
+            }
             return;
         }else{
             [self parseRequestResponseData:data postXML:postXML];
@@ -321,4 +325,12 @@
     }
 }
 
+- (void)postRequestError:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(upnpRequestError:)]) {
+        [self.delegate upnpRequestError:error];
+    }
+}
+
 @end
+
+

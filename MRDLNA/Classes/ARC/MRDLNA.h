@@ -16,40 +16,40 @@
  DLNA局域网搜索设备结果
  @param devicesArray <CLUPnPDevice *> 搜索到的设备
  */
-- (void)searchDLNAResult:(NSArray *)devicesArray;
+- (void)mrdlnaSearchDLNAResult:(NSArray *)devicesArray;
 // 搜索错误
-- (void)upnpSearchErrorWithError:(NSError *)error;
+- (void)mrdlnaUpnpSearchErrorWithError:(NSError *)error;
 // 搜索结束
-- (void)upnpSearchStop;
-
-
+- (void)mrdlnaUpnpSearchStop;
+// 请求异常
+- (void)mrdlnaUpnpRequestError:(NSError *)error;
 // 设置url响应
-- (void)upnpSetAVTransportURIResponse;
+- (void)mrdlnaUpnpSetAVTransportURIResponse;
 // 获取播放状态
-- (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info;
+- (void)mrdlnaUpnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info;
 //optional
 // 未定义的响应/错误
-- (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML;
+- (void)mrdlnaUpnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML;
 // 投屏成功开始播放
-- (void)upnpPlayResponse;
+- (void)mrdlnaUpnpPlayResponse;
 // 暂停响应
-- (void)upnpPauseResponse;
+- (void)mrdlnaUpnpPauseResponse;
 // 停止投屏
-- (void)upnpStopResponse;
+- (void)mrdlnaUpnpStopResponse;
 // 跳转响应
-- (void)upnpSeekResponse;
+- (void)mrdlnaUpnpSeekResponse;
 // 以前的响应
-- (void)upnpPreviousResponse;
+- (void)mrdlnaUpnpPreviousResponse;
 // 下一个响应
-- (void)upnpNextResponse;
+- (void)mrdlnaUpnpNextResponse;
 // 设置音量响应
-- (void)upnpSetVolumeResponse;
+- (void)mrdlnaUpnpSetVolumeResponse;
 // 设置下一个url响应
-- (void)upnpSetNextAVTransportURIResponse;
+- (void)mrdlnaUpnpSetNextAVTransportURIResponse;
 // 获取音频信息
-- (void)upnpGetVolumeResponse:(NSString *)volume;
+- (void)mrdlnaUpnpGetVolumeResponse:(NSString *)volume;
 /// 获取播放进度
-- (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info;
+- (void)mrdlnaUpnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info;
 
 @end
 
