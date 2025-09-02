@@ -148,6 +148,10 @@
     [self.render getPositionInfo];
 }
 
+- (void)getTransportInfo {
+    [self.render getTransportInfo];
+}
+
 #pragma mark -- 搜索协议CLUPnPDeviceDelegate回调
 - (void)upnpSearchChangeWithResults:(NSArray<CLUPnPDevice *> *)devices{
     NSMutableArray *deviceMarr = [NSMutableArray array];
@@ -193,6 +197,9 @@
 //    NSLog(@"%@ === %@", info.currentTransportState, info.currentTransportStatus);
     if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
         [self.render play];
+    }
+    if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpGetTransportInfoResponse:)]) {
+        [self.delegate mrdlnaUpnpGetTransportInfoResponse:info];
     }
 }
 

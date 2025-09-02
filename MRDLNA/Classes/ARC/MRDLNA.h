@@ -122,4 +122,9 @@
  */
 - (void)getPositionInfo;
 
+/**
+ 获取播放状态,可通过协议回调使用
+ */
+- (void)getTransportInfo;
+
 @end
