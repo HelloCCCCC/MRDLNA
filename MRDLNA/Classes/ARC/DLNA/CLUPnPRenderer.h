@@ -28,7 +28,7 @@
  设置投屏地址
  @param urlStr 视频url
  */
-- (void)setAVTransportURL:(NSString *)urlStr;
+- (void)setAVTransportURL:(NSString *)urlStr title:(NSString *)title;
 
 /**
  设置投屏地址(带媒体信息)

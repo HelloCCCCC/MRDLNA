@@ -68,7 +68,7 @@
 -(void)initCLUPnPRendererAndDlnaPlay{
     self.render = [[CLUPnPRenderer alloc] initWithModel:self.device];
     self.render.delegate = self;
-    [self.render setAVTransportURL:self.playUrl];
+    [self.render setAVTransportURL:self.playUrl title:self.playTitle];
 }
 /**
  退出DLNA
@@ -138,9 +138,10 @@
 /**
  播放切集
  */
-- (void)playTheURL:(NSString *)url{
+- (void)playTheURL:(NSString *)url title:(NSString *)title {
     self.playUrl = url;
-    [self.render setAVTransportURL:url];
+    self.playTitle = title;
+    [self.render setAVTransportURL:url title:title];
 }
 
 #pragma mark --
@@ -194,10 +195,11 @@
 }
 // 获取播放状态
 - (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info{
-//    NSLog(@"%@ === %@", info.currentTransportState, info.currentTransportStatus);
-    if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
-        [self.render play];
-    }
+/*
+     if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
+         [self.render play];
+     }
+ */
     if ([self.delegate respondsToSelector:@selector(mrdlnaUpnpGetTransportInfoResponse:)]) {
         [self.delegate mrdlnaUpnpGetTransportInfoResponse:info];
     }

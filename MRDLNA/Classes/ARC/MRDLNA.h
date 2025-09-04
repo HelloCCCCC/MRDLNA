@@ -59,6 +59,7 @@
 
 @property(nonatomic, strong) CLUPnPDevice *device;
 
+@property(nonatomic,copy) NSString *playTitle;
 @property(nonatomic,copy) NSString *playUrl;
 
 @property(nonatomic,assign) NSInteger searchTime;
@@ -115,7 +116,7 @@
 /**
  播放切集
  */
-- (void)playTheURL:(NSString *)url;
+- (void)playTheURL:(NSString *)url title:(NSString *)title;
 
 /**
  获取播放进度,可通过协议回调使用

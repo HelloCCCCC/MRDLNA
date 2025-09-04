@@ -49,7 +49,7 @@
 
 #pragma mark -
 #pragma mark -- AVTransport动作 --
-- (void)setAVTransportURL:(NSString *)urlStr{
+- (void)setAVTransportURL:(NSString *)urlStr title:(NSString *)title {
     if (!urlStr || urlStr.length == 0) {
         CLLog(@"Invalid URL: %@", urlStr);
         return;
@@ -58,7 +58,7 @@
     CLUPnPAction *action = [[CLUPnPAction alloc] initWithAction:@"SetAVTransportURI"];
     [action setArgumentValue:@"0" forName:@"InstanceID"];
     [action setArgumentValue:urlStr forName:@"CurrentURI"];
-    [action setArgumentValue:[self createDIDLForURL:urlStr title:nil creator:nil] forName:@"CurrentURIMetaData"];
+    [action setArgumentValue:[self createDIDLForURL:urlStr title:title creator:nil] forName:@"CurrentURIMetaData"];
     [self postRequestWith:action];
 }
 
